@@ -1,2 +1,24 @@
 # BF
-Brainf*ck interpreter written in modern C++
+
+Very small interpreter for a very small language. Brainf*ck interpreter written in modern C++.  It's a trivial implementation for a challenge. 
+
+**CHALLENGE: To write the interpreter as small in size as possible**.
+
+The original was only `296B` we've to get close to it. With every update I'll try to decrease the size. The end goal is to eventually write it in x86-64 Assembly. For the time being check out my repo for AVX2 SIMD examples for linear algebra : [Here](https://github.com/ArcShahi/ASM-x86-64)
+
+Anyways here's how to use it :
+
+```
+# Copy the bf++.cpp in your favorite IDE and just compile. I've named the interpreter : "bf++" you can name it whatever you want then run like this
+bf++ hello.bf
+```
+
+It's current size is ~`50KB`, which is a LOT!!!
+
+----
+
+The Official site : https://brainfuck.org/
+
+## AI Policy
+**AI usage for code generation and documentation is forbidden for this project.**
+> Shahi (*prefers natural stupidity over artificial intelligence*
