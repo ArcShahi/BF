@@ -35,6 +35,7 @@ namespace {
 					   }),
 		    program.end());
 
+
 		std::array<uint8_t, 3000> tape{};
 		size_t arrow{ 0 };
 
@@ -110,9 +111,20 @@ namespace {
 }
 
 int main(int argc, char* argv[]) {
-	if (argc == 1) {
+	if (argc < 2) {
 		std::cerr << "bf++: error: no input file";
 		return 1;
 	}
-	return interpreter(argv[1]);
+
+	bool binary_mode{ false };
+	if (argc > 2) {
+		if (std::string(argv[2]) == "-b") {
+			binary_mode = true;
+		}
+		else {
+			std::cerr << "bf++: warning: unknown flag '" << argv[2] << "' ignored\n";
+		}
+	}
+
+	return interpreter(argv[1], binary_mode);
 }
