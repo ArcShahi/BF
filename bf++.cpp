@@ -1,20 +1,20 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <filesystem>
 #include <unordered_map>
 #include <array>
+#include <vector>
+#include <algorithm>
+#include <iterator>
+#include <cstdint>
 
-// Remove the use of std::filesytem and you'll get executable of size ~30KB
-namespace fs = std::filesystem;
 
 namespace {
 
-	[[nodiscard]] int interpreter(const fs::path& path) noexcept {
+	[[nodiscard]] int interpreter(const std::string& path, const bool binary_mode = false) noexcept {
 
-		//  Preprocesser
-		if (!fs::is_regular_file(path) || path.extension() != ".bf") {
-			std::cout << "bf++: srcfile not found" << path.string();
+		if (!path.ends_with(".bf") && !path.ends_with(".b")) {
+			std::cerr << "error: no src file";
 			return 1;
 		}
 
@@ -34,7 +34,6 @@ namespace {
 						   return ins.find(c) == std::string::npos;
 					   }),
 		    program.end());
-
 
 		std::array<uint8_t, 3000> tape{};
 		size_t arrow{ 0 };
@@ -56,8 +55,8 @@ namespace {
 		}();
 
 		// Execution
-
-		for (int ip{ 0 }; ip < program.length(); ++ip) {
+		int ip{ 0 };
+		while (ip < program.length()) {
 			switch (program[ip]) {
 			case '+':
 				++tape[arrow];
@@ -71,12 +70,28 @@ namespace {
 			case '<':
 				--arrow;
 				break;
-			case '.':
-				std::cout << static_cast<char>(tape[arrow]);
+			case '.': {
+
+				uint8_t val{ tape[arrow] };
+				if (!binary_mode) [[likely]]
+					std::cout << (val == 10 ? '\n' : static_cast<char>(val));
+				else
+					std::cout << static_cast<char>(val);
+
 				break;
-			case ',':
-				std::cin >> tape[arrow];
+			}
+			case ',': {
+
+				int input{ std::cin.get() };
+				if (input == -1)
+					tape[arrow] = 0;
+				if (!binary_mode) [[likely]]
+					tape[arrow] = (input == '\n' || input == '\r') ? 10 : static_cast<uint8_t>(input);
+				else
+					tape[arrow] = static_cast<uint8_t>(input);
+
 				break;
+			}
 			case '[':
 				if (!tape[arrow])
 					ip = loop_lookup.at(ip);
@@ -86,10 +101,11 @@ namespace {
 					ip = loop_lookup.at(ip);
 				break;
 			}
+			++ip;
 		}
+
 		return 0;
 	}
-
 
 }
 
@@ -98,6 +114,5 @@ int main(int argc, char* argv[]) {
 		std::cerr << "bf++: error: no input file";
 		return 1;
 	}
-
 	return interpreter(argv[1]);
 }
