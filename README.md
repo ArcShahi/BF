@@ -8,8 +8,9 @@ The original was only `296B` we've to get close to it. With every update I'll tr
 
 Anyways here's how to use it :
 
-```
-# Copy the bf++.cpp in your favorite IDE and just compile. I've named the interpreter : "bf++" you can name it whatever you want then run like this
+```powershell
+# Copy the bf++.cpp in your favorite IDE and just compile.
+# I've named the interpreter : "bf++" you can name it whatever you want then run like this
 bf++ hello.bf
 ```
 
