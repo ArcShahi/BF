@@ -1,6 +1,6 @@
 # BF
 
-Very small interpreter for a very small language. Brainf*ck interpreter written in modern C++.  It's a trivial implementation for a challenge. 
+ Brainf*ck interpreter written in modern C++. This implementation uses tape with 3000 cells on stack. Very small interpreter for a very small language. It's a trivial implementation for a challenge.
 
 **CHALLENGE: To write the interpreter as small in size as possible**.
 
@@ -15,6 +15,9 @@ bf++ hello.bf
 ```
 
 It's current size is ~`50KB`, which is a LOT!!!
+
+## Known Issues
+- Doesn't check for arrow pointer for out of bounds
 
 ----
 
