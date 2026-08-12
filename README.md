@@ -9,7 +9,7 @@ The original was only `296B` we've to get close to it. With every update I'll tr
 Anyways here's how to use it :
 
 ```powershell
-# Copy the bf++.cpp in your favorite IDE and just compile.
+# Copy the bf++.cpp in your favorite IDE and just compile with -std=c++20 or above
 # I've named the interpreter : "bf++" you can name it whatever you want then run like this
 bf++ hello.bf
 ```
