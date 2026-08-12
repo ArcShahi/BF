@@ -14,7 +14,7 @@ Anyways here's how to use it :
 bf++ hello.bf
 ```
 
-It's current size is ~`50KB`, which is a LOT!!!
+It's current size is ~`30KB`, which is a LOT!!!
 
 ## Known Issues
 - Doesn't check for arrow pointer for out of bounds
